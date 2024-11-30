@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the body takes at least the full height of the viewport */
+            position: relative; /* Position relative for absolute footer */
+            
+        }
+
+        /* Background video styling */
+        .background-video {
+            position: absolute; /* Position absolutely to cover the whole screen */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the entire background */
+            z-index: -1; /* Send the video to the back */
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            background-color: white; /* Solid white background */
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+        }
+
+        /* Logo and search bar wrapper */
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Logo styling */
+        .logo img {
+            width: 80px; /* Enlarged logo size */
+            height: auto;
+            margin-right: 20px; /* Add margin to the right of the logo */
+        }
+
+        /* Navigation styling */
+        nav {
+            flex-grow: 1; /* Allows nav to take up available space */
+            text-align: center; /* Center the nav items */
+        }
+
+        nav ul {
+            list-style: none; /* Remove bullet points */
+            display: flex; /* Align items in a row */
+            justify-content: center; /* Center align the nav items */
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin-left: 20px; /* Space between menu items */
+        }
+
+        nav ul li a {
+            text-decoration: none; /* Remove underline from links */
+            color: black; /* Color of the links */
+            transition: color 0.3s; /* Smooth color transition on hover */
+        }
+
+        nav ul li a:hover {
+            color: #ff0000; /* Change color on hover */
+        }
+
+        /* Search bar styling */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 8px;
+            border-radius: 20px;
+            border: none;
+            width: 200px;
+            outline: none;
+            background-color: #333;
+            color: white;
+            padding-left: 10px;
+        }
+
+        .search-bar input[type="text"]::placeholder {
+            color: #bbb;
+        }
+
+        .search-bar button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 20px;
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #333;
+        }
+
+        /* Main content styling */
+        .main-content {
+            margin-top: 80px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px);
+        }
+
+        /* Image grid styling */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            grid-template-rows: repeat(5, 1fr); /* 5 rows */
+            gap: 20px;
+            width: 80%; /* Adjust width to stretch the grid */
+            margin: 0 auto; /* Center the grid */
+            height: 80%; /* Adjust height to fit content */
+        }
+        /* Image background colors */
+        .image-container:nth-child(1) { background-color: #046a3b; }
+        .image-container:nth-child(2) { background-color: #ff00c3; }
+        .image-container:nth-child(3) { background-color: #00ff1a; }
+        .image-container:nth-child(4) { background-color: #ff7700; }
+        .image-container:nth-child(5) { background-color: #484545; }
+        .image-container:nth-child(6) { background-color: #f6f6f6; }
+        .image-container:nth-child(7) { background-color: #041ccf; }
+        .image-container:nth-child(8) { background-color: #ff0000; }
+        .image-container:nth-child(9) { background-color: #fcfcfc; }
+        .image-container:nth-child(10) { background-color: #05086c; }
+
+        .image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            padding: 10px;
+            overflow: hidden; 
+            transition: transform 0.3s, opacity 0.3s; 
+        }
+
+        /* Image styling */
+        .image-container img {
+            width: 100%; /* Make images responsive */
+            height: auto; /* Maintain aspect ratio */
+            max-height: 150px; /* Set a max height to prevent stretching */
+            object-fit: contain; /* Ensures the entire image is visible */
+            transition: transform 0.3s;
+        }
+
+        /* Hover effects for image container */
+        .image-container:hover {
+            transform: scale(1.1); 
+            opacity: 0.9; 
+        }
+
+        /* Hover effect for image */
+        .image-container:hover img {
+            transform: scale(1.1); 
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: white; /* Solid white background */
+            color: black;
+            text-align: center; /* Center align text */
+            padding: 20px;
+            width: 100%;
+            position: relative; /* Position relative for footer */
+            bottom: 0; /* Position at the bottom */
+        }
+
+        footer h3 {
+            margin: 10px 0;
+        }
+
+        footer p {
+            margin: 5px 0;
+            font-size: 14px; /* Slightly smaller font size */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background video -->
+    <video autoplay muted loop class="background-video">
+        <source src="f1bgvid - Made with Clipchamp.mp4" type="video/mp4"> <!-- Replace with your video file -->
+        Your browser does not support the video tag.
+    </video>
+
+    <header>
+        <div class="header-left">
+            <!-- Logo -->
+            <div class="logo">
+                <img src="F1-logo.png" alt="Logo">
+            </div>
+
+            <!-- Search bar -->
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <button type="submit">Search</button>
+            </div>
+        </div>
+
+        <!-- Navigation bar -->
+        <nav>
+            <ul>
+                <li><a href="#">Cars</a></li>
+                <li><a href="#">Drivers</a></li>
+                <li><a href="#">Standings</a></li>
+                <li><a href="#">Schedule</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <div class="image-grid">
+            <div class="image-container">
+                <img src="Aston_Martin_Aramco_2024_logo.png" alt="Aston_Martin_Aramco_2024_logo">
+            </div>
+            <div class="image-container">
+                <img src="Logo_of_alpine_f1_team_2022.png" alt="Logo_of_alpine_f1_team_2022">
+            </div>
+            <div class="image-container">
+                <img src="Logo_of_Stake_F1_Team_Kick_Sauber-removebg-preview.png" alt="Logo_of_Stake_F1_Team_Kick_Sauber">
+            </div>
+            <div class="image-container">
+                <img src="McLaren_Racing_logo.svg.png" alt="McLaren_Racing_logo">
+            </div>
+            <div class="image-container">
+                <img src="Mercedes-Benz_in_Formula_One_logo.svg.png" alt="Mercedes-Benz_in_Formula_One_logo">
+            </div>
+            <div class="image-container">
+                <img src="MoneyGram_Haas_F1_Team_Logo.svg.png" alt="MoneyGram_Haas_F1_Team_Logo">
+            </div>
+            <div class="image-container">
+                <img src="Red_bull_racing.png" alt="Red_bull_racing">
+            </div>
+            <div class="image-container">
+                <img src="Scuderia_Ferrari_Logo.svg.png" alt="Scuderia_Ferrari_Logo">
+            </div>
+            <div class="image-container">
+                <img src="VCARB_F1_logo.svg.png" alt="VCARB_F1_logo">
+            </div>
+            <div class="image-container">
+                <img src="Williams_Racing_2020_logo.png" alt="Williams_Racing_2020_logo">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <h3>About Formula 1</h3>
+        <p>Formula 1 is the highest class of single-seater auto racing. It is governed by the Fédération Internationale de l'Automobile (FIA).</p>
+        <p>Stay updated with the latest news, teams, and events!</p>
+        <p>&copy; 2024 F1 Fansite. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
